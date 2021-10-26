@@ -9,6 +9,10 @@ import {
   LOGOUT_FAIL,
   LOAD_USER_FAIL,
   LOAD_USER_SUCCESS,
+  AUTHENTICATED_FAIL,
+  AUTHENTICATED_SUCCESS,
+  REFRESH_FAIL,
+  REFRESH_SUCCESS,
 } from "./types";
 
 
@@ -39,6 +43,59 @@ export const load_user = () => async (dispatch) => {
       });
   }
 };
+
+export const check_auth_status = () => async (dispatch) => {
+  try {
+    const res = await fetch('/api/account/verify', {
+      method: 'GET', 
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+
+    if(res.status === 200) {
+      dispatch({
+        type: AUTHENTICATED_SUCCESS
+      });
+      dispatch(load_user());
+    } else {
+      dispatch({
+        type: AUTHENTICATED_FAIL
+      })
+    }
+
+  } catch(err) {
+    dispatch({
+      type: AUTHENTICATED_FAIL
+    });
+  }
+};
+
+export const request_refresh = () => async (dispatch) => {
+  try {
+    const res = await fetch('/api/account/refresh', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if(res.status === 200) {
+      dispatch({
+        type: REFRESH_SUCCESS
+      });
+      dispatch(check_auth_status());
+    } else {
+      dispatch({
+        type: REFRESH_FAIL
+      });
+   }
+  } catch(err) {
+    dispatch({
+      type: REFRESH_FAIL
+    });
+  }
+}
 
 
 export const register =
