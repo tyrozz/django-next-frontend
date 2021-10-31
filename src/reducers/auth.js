@@ -18,6 +18,8 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_CONFIRM_SUCCESS,
   RESET_PASSWORD_CONFIRM_FAIL,
+  CHANGE_PASSWORD_FAIL,
+  CHANGE_PASSWORD_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -122,6 +124,16 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+      };
+    case CHANGE_PASSWORD_FAIL:
+      return {
+        ...state,
+      }
     default:
       return state;
   }

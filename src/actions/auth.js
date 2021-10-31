@@ -16,7 +16,9 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
   RESET_PASSWORD_CONFIRM_FAIL,
-  RESET_PASSWORD_CONFIRM_SUCCESS
+  RESET_PASSWORD_CONFIRM_SUCCESS,
+  CHANGE_PASSWORD_FAIL,
+  CHANGE_PASSWORD_SUCCESS,
 } from "./types";
 
 
@@ -289,6 +291,37 @@ export const reset_password_confirm = (uid, token, new_password1, new_password2)
      type: RESET_PASSWORD_CONFIRM_FAIL,
    });
  }
+}
 
+export const change_password = (old_password, new_password1, new_password2) => async (dispatch)  => {
+  const body = JSON.stringify({
+    old_password, 
+    new_password1, 
+    new_password2
+  });
 
+  try{
+    const res = await fetch('/api/account/changepassword', {
+      method: 'POST',
+      headers: {
+        'Accept': "application/json",
+        "Content-Type": "application/json",
+      },
+      body: body
+    });
+
+    if(res.status === 200) {
+      dispatch({
+        type: CHANGE_PASSWORD_SUCCESS
+      });
+    } else {
+      dispatch({
+        type: CHANGE_PASSWORD_FAIL
+      });
+    }
+  } catch (err) {
+    dispatch({
+      type: CHANGE_PASSWORD_FAIL
+    });
+  }
 }
