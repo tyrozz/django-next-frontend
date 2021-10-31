@@ -2,8 +2,17 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { login, reset_register_success } from "../actions/auth";
+import {
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 
 import { Container } from "../components/Container";
+import { Main } from "../components/Main";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -38,10 +47,11 @@ const LoginPage = () => {
 
   return (
     <Container height="100vh">
+      <Box p={20}>
         <form onSubmit={onSubmit}>
-          <div>
-            <label>User Name</label>
-            <input
+          <FormControl>
+            <FormLabel>User name</FormLabel>
+            <Input
               type="text"
               name="username"
               placeholder="User Name"
@@ -49,9 +59,12 @@ const LoginPage = () => {
               value={username}
               required
             />
+            <FormHelperText>Please enter your user name.</FormHelperText>
+          </FormControl>
 
-            <label>Password</label>
-            <input
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
               type="password"
               name="password"
               placeholder="Password"
@@ -60,9 +73,13 @@ const LoginPage = () => {
               minLength="8"
               required
             />
-            <button type="submit">Login</button>
-          </div>
+            <FormHelperText>Please enter your password.</FormHelperText>
+          </FormControl>
+          <Button width="full" mt={4} type="submit">
+            Login
+          </Button>
         </form>
+      </Box>
     </Container>
   );
 };
