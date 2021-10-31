@@ -15,9 +15,10 @@ const RegisterPage = () => {
     username: "",
     password: "",
     re_password: "",
+    email: "",
   });
 
-  const { first_name, last_name, username, password, re_password } = formData;
+  const { first_name, last_name, username, password, re_password, email } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,7 +27,7 @@ const RegisterPage = () => {
     e.preventDefault();
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(
-        register(first_name, last_name, username, password, re_password)
+        register(first_name, last_name, username, password, re_password, email)
       );
     }
   };
@@ -61,6 +62,16 @@ const RegisterPage = () => {
               placeholder="User Name"
               onChange={onChange}
               value={username}
+              required
+            />
+
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={onChange}
+              value={email}
               required
             />
 

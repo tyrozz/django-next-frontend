@@ -14,6 +14,10 @@ import {
   AUTHENTICATED_SUCCESS,
   REFRESH_FAIL,
   REFRESH_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_CONFIRM_SUCCESS,
+  RESET_PASSWORD_CONFIRM_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -55,43 +59,43 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        user: null
+        user: null,
       };
     case LOGOUT_FAIL:
       return {
-        ...state
+        ...state,
       };
     case LOAD_USER_SUCCESS:
       return {
-            ...state,
-            user: payload.user
-        }
+        ...state,
+        user: payload.user,
+      };
     case LOAD_USER_FAIL:
-        return {
-            ...state,
-            user: null
-        }    
+      return {
+        ...state,
+        user: null,
+      };
     case AUTHENTICATED_SUCCESS:
       return {
         ...state,
-        isAuthenticated: true
-      }
+        isAuthenticated: true,
+      };
     case AUTHENTICATED_FAIL:
       return {
         ...state,
         isAuthenticated: false,
-        user: null
-      }    
+        user: null,
+      };
     case REFRESH_SUCCESS:
       return {
-        ...state
-      }
+        ...state,
+      };
     case REFRESH_FAIL:
       return {
         ...state,
         isAuthenticated: false,
-        user: null
-      }
+        user: null,
+      };
     case SET_AUTH_LOADING:
       return {
         ...state,
@@ -101,6 +105,22 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+      };
+    case RESET_PASSWORD_FAIL:
+      return {
+        ...state,
+      };
+    case RESET_PASSWORD_CONFIRM_SUCCESS:
+      return {
+        ...state,
+      };
+    case RESET_PASSWORD_CONFIRM_FAIL:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -13,6 +13,10 @@ import {
   AUTHENTICATED_SUCCESS,
   REFRESH_FAIL,
   REFRESH_SUCCESS,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_CONFIRM_FAIL,
+  RESET_PASSWORD_CONFIRM_SUCCESS
 } from "./types";
 
 
@@ -99,7 +103,7 @@ export const request_refresh = () => async (dispatch) => {
 
 
 export const register =
-  (first_name, last_name, username, password, re_password) =>
+  (first_name, last_name, username, password, re_password,email) =>
   async (dispatch) => {
     const body = JSON.stringify({
       first_name,
@@ -107,6 +111,7 @@ export const register =
       username,
       password,
       re_password,
+      email,
     });
 
     dispatch({
@@ -217,3 +222,73 @@ export const logout = () => async dispatch => {
       });
   }
 };
+
+
+export const reset_password = (email) => async (dispatch) => {
+  const body = JSON.stringify({
+    email,
+  });
+
+  try {
+     const res = await fetch('/api/account/resetpassword', {
+      method: "POST",
+        headers: {
+          'Accept': "application/json",
+          "Content-Type": "application/json",
+        },
+        body: body,
+    });
+
+    if(res.status === 200) {
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+      });
+      dispatch(logout());
+    } else {
+      dispatch({
+        type: RESET_PASSWORD_FAIL,
+      });
+    }
+  } catch(err) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+    });
+  }
+}
+
+
+export const reset_password_confirm = (uid, token, new_password1, new_password2) => async (dispatch) => {
+  const body = JSON.stringify({
+    uid,
+    token,
+    new_password1,
+    new_password2
+  });
+
+  try {
+    const res = await fetch('/api/account/resetpasswordconfirm', {
+     method: "POST",
+       headers: {
+         'Accept': "application/json",
+         "Content-Type": "application/json",
+       },
+       body: body,
+   });
+
+   if(res.status === 200) {
+     dispatch({
+       type: RESET_PASSWORD_CONFIRM_SUCCESS,
+     });
+   } else {
+     dispatch({
+       type: RESET_PASSWORD_CONFIRM_FAIL,
+     });
+   }
+ } catch(err) {
+   dispatch({
+     type: RESET_PASSWORD_CONFIRM_FAIL,
+   });
+ }
+
+
+}

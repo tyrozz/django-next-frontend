@@ -32,7 +32,7 @@ const LoginPage = () => {
     }
   };
 
-  if (typeof window !== " undefined" && isAuthenticated) {
+  if (typeof window !== "undefined" && isAuthenticated) {
     router.push("/dashboard");
   }
 
