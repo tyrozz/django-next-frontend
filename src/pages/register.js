@@ -2,6 +2,15 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { register } from "../actions/auth";
 
+import {
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  Box,
+} from "@chakra-ui/react";
+
 import { Container } from "../components/Container";
 
 const RegisterPage = () => {
@@ -18,7 +27,8 @@ const RegisterPage = () => {
     email: "",
   });
 
-  const { first_name, last_name, username, password, re_password, email } = formData;
+  const { first_name, last_name, username, password, re_password, email } =
+    formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,10 +43,11 @@ const RegisterPage = () => {
   };
   return (
     <Container height="100vh">
+      <Box p={20}>
         <form onSubmit={onSubmit}>
-          <div>
-            <label>First Name</label>
-            <input
+          <FormControl>
+            <FormLabel>First Name</FormLabel>
+            <Input
               type="text"
               name="first_name"
               placeholder="First Name"
@@ -44,9 +55,11 @@ const RegisterPage = () => {
               value={first_name}
               required
             />
+          </FormControl>
 
-            <label>Last Name</label>
-            <input
+          <FormControl>
+            <FormLabel>Last Name</FormLabel>
+            <Input
               type="text"
               name="last_name"
               placeholder="Last Name"
@@ -54,9 +67,11 @@ const RegisterPage = () => {
               value={last_name}
               required
             />
+          </FormControl>
 
-            <label>User Name</label>
-            <input
+          <FormControl>
+            <FormLabel>User Name</FormLabel>
+            <Input
               type="text"
               name="username"
               placeholder="User Name"
@@ -64,9 +79,11 @@ const RegisterPage = () => {
               value={username}
               required
             />
+          </FormControl>
 
-            <label>Email</label>
-            <input
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
               type="email"
               name="email"
               placeholder="Email"
@@ -74,9 +91,11 @@ const RegisterPage = () => {
               value={email}
               required
             />
+          </FormControl>
 
-            <label>Password</label>
-            <input
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
               type="password"
               name="password"
               placeholder="Password"
@@ -85,9 +104,11 @@ const RegisterPage = () => {
               minLength="8"
               required
             />
+          </FormControl>
 
-            <label>Re-Password</label>
-            <input
+          <FormControl>
+            <FormLabel>Re-Password</FormLabel>
+            <Input
               type="password"
               name="re_password"
               placeholder="Confirm Password"
@@ -96,9 +117,13 @@ const RegisterPage = () => {
               minLength="8"
               required
             />
-          </div>
-          <button type="submit">Create Account</button>
+          </FormControl>
+
+          <Button width="full" mt={4} type="submit">
+            Create Account
+          </Button>
         </form>
+      </Box>
     </Container>
   );
 };
