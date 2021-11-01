@@ -1,33 +1,36 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import { register } from "../actions/auth";
 
 import {
   FormControl,
   FormLabel,
-  FormHelperText,
   Input,
   Button,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { Container } from "../components/Container";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const register_success = useSelector((state) => state.auth.loading);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loading = useSelector((state) => state.auth.loading);
 
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     username: "",
-    password: "",
-    re_password: "",
+    password1: "",
+    password2: "",
     email: "",
   });
 
-  const { first_name, last_name, username, password, re_password, email } =
+  const { first_name, last_name, username, password1, password2, email } =
     formData;
 
   const onChange = (e) =>
@@ -37,10 +40,19 @@ const RegisterPage = () => {
     e.preventDefault();
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(
-        register(first_name, last_name, username, password, re_password, email)
+        register(first_name, last_name, username, password1, password2, email)
       );
     }
   };
+
+  if (typeof window !== "undefined" && isAuthenticated) {
+    router.push("/dashboard");
+  }
+
+  if (register_success) {
+    router.push("/login");
+  }
+
   return (
     <Container height="100vh">
       <Box p={20}>
@@ -97,10 +109,10 @@ const RegisterPage = () => {
             <FormLabel>Password</FormLabel>
             <Input
               type="password"
-              name="password"
+              name="password1"
               placeholder="Password"
               onChange={onChange}
-              value={password}
+              value={password1}
               minLength="8"
               required
             />
@@ -110,18 +122,22 @@ const RegisterPage = () => {
             <FormLabel>Re-Password</FormLabel>
             <Input
               type="password"
-              name="re_password"
+              name="password2"
               placeholder="Confirm Password"
               onChange={onChange}
-              value={re_password}
+              value={password2}
               minLength="8"
               required
             />
           </FormControl>
 
-          <Button width="full" mt={4} type="submit">
-            Create Account
-          </Button>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Button width="full" mt={4} type="submit">
+              Create Account
+            </Button>
+          )}
         </form>
       </Box>
     </Container>

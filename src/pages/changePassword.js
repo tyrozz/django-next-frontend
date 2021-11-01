@@ -1,7 +1,16 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import router, { useRouter } from "next/router";
 import { change_password } from "../actions/auth";
+import Link from 'next/link'
+import {
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 
 import { Container } from "@chakra-ui/layout";
 
@@ -33,49 +42,58 @@ const ChangePassword = () => {
     }
   };
 
-  if (typeof window !== "undefined" && isAuthenticated) {
+  if (typeof window !== "undefined") {
     router.push("/login");
   }
 
   return (
     <Container>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>Old password</label>
-          <input
-            type="password"
-            name="old_password"
-            placeholder="Password"
-            onChange={onChange}
-            value={old_password}
-            minLength="8"
-            required
-          />
+      <Box p={20}>
+        {isAuthenticated && (
+          <form onSubmit={onSubmit}>
+            <FormControl>
+              <FormLabel>Old password</FormLabel>
+              <Input
+                type="password"
+                name="old_password"
+                placeholder="Password"
+                onChange={onChange}
+                value={old_password}
+                minLength="8"
+                required
+              />
+            </FormControl>
 
-          <label>New password</label>
-          <input
-            type="password"
-            name="new_password1"
-            placeholder="Password"
-            onChange={onChange}
-            value={new_password1}
-            minLength="8"
-            required
-          />
+            <FormControl>
+              <FormLabel>New password</FormLabel>
+              <Input
+                type="password"
+                name="new_password1"
+                placeholder="Password"
+                onChange={onChange}
+                value={new_password1}
+                minLength="8"
+                required
+              />
+            </FormControl>
 
-          <label>New password again</label>
-          <input
-            type="password"
-            name="new_password2"
-            placeholder="Password"
-            onChange={onChange}
-            value={new_password2}
-            minLength="8"
-            required
-          />
-          <button type="submit">Change password</button>
-        </div>
-      </form>
+            <FormControl>
+              <FormLabel>Confirm your new password</FormLabel>
+              <Input
+                type="password"
+                name="new_password2"
+                placeholder="Password"
+                onChange={onChange}
+                value={new_password2}
+                minLength="8"
+                required
+              />
+            </FormControl>
+
+            <button type="submit">Change password</button>
+          </form>
+        )}
+      </Box>
     </Container>
   );
 };

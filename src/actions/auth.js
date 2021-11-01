@@ -105,14 +105,14 @@ export const request_refresh = () => async (dispatch) => {
 
 
 export const register =
-  (first_name, last_name, username, password, re_password,email) =>
+  (first_name, last_name, username, password1, password2,email) =>
   async (dispatch) => {
     const body = JSON.stringify({
       first_name,
       last_name,
       username,
-      password,
-      re_password,
+      password1,
+      password2,
       email,
     });
 
