@@ -10,6 +10,7 @@ import {
   Input,
   Button,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { Container } from "../components/Container";
@@ -19,6 +20,8 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loading = useSelector((state) => state.auth.loading);
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -76,9 +79,14 @@ const LoginPage = () => {
             />
             <FormHelperText>Please enter your password.</FormHelperText>
           </FormControl>
-          <Button width="full" mt={4} type="submit">
-            Login
-          </Button>
+
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Button width="full" mt={4} type="submit">
+              Login
+            </Button>
+          )}
         </form>
       </Box>
     </Container>
