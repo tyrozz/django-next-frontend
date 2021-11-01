@@ -12,5 +12,5 @@ Technologies used for the frontend:
 
 ```shell
 yarn
-yarn next run
+yarn next dev
 ```
