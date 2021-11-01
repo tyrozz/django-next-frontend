@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import {
   FormControl,
   FormLabel,
-  FormHelperText,
   Input,
   Button,
   Box,
@@ -34,6 +33,10 @@ const ResetPassword = () => {
       dispatch(reset_password(email));
     }
   };
+
+  if (typeof window !== "undefined" && !isAuthenticated) {
+    router.push("/login");
+  }
 
   return (
     <Container height="100vh">

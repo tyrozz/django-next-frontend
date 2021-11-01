@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Link as ChakraLink,
   Text,
@@ -5,6 +6,7 @@ import {
   List,
   ListIcon,
   ListItem,
+  Button,
 } from "@chakra-ui/react";
 import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
 import { Hero } from "../components/Hero";
@@ -53,13 +55,17 @@ const Index = () => (
           </ChakraLink>
         </ListItem>
       </List>
+      <Text>Next ❤️ Django</Text>
     </Main>
 
     <DarkModeSwitch />
     <Footer>
-      <Text>Next ❤️ Django</Text>
+      <Link href="https://github.com/tyrozz">
+        <Button width="100%" bgGradient="linear(to-tr, teal.300,yellow.400)">
+          View Repo
+        </Button>
+      </Link>
     </Footer>
-    <CTA />
   </Container>
 );
 
